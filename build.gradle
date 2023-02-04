@@ -1,7 +1,7 @@
 ext {
 	//spring libs
 	springVersion = '5.0.10.RELEASE'
-	bootVersion = '2.0.6.RELEASE'
+	bootVersion = '3.0.1.RELEASE'
 	springDataVersion = '2.0.11.RELEASE'
 	springAmqpVersion = '2.1.0.RELEASE'
 	springSecurityVersion = '5.0.2.BUILD-SNAPSHOT'

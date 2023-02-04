@@ -4,12 +4,14 @@ subprojects {
 
 	/*Task that copies all the dependencies under build/libs */
 	task copyDependencies(type: Copy) {
-		from configurations.compile
+		from configurations.compileClasspath
 		into 'build/libs'
 	}
 
 	dependencies {
-		compile spring.context, misc.slf4jJcl, misc.logback
-		testCompile testing.junit
+		implementation group: 'org.springframework', name: 'spring-context', version: '5.3.3'
+		implementation group: 'org.slf4j', name: 'slf4j-jcl', version: '1.7.30'
+		implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+		testImplementation group: 'junit', name: 'junit', version: '4.13.1'
 	}
 }
