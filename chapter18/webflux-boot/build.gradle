@@ -2,10 +2,10 @@ buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven { url "http://repo.spring.io/release" }
-        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/release" }
+        maven { url "https://repo.spring.io/snapshot" }
         maven { url "https://repo.spring.io/libs-snapshot" }
-        maven { url "http://repo.spring.io/milestone" }
+        maven { url "https://repo.spring.io/milestone" }
         maven { url "https://repo.spring.io/libs-milestone" }
     }
 
@@ -17,18 +17,19 @@ buildscript {
 apply plugin: 'org.springframework.boot'
 
 dependencies {
-    compile  (boot.starterJpa) {
+    runtimeClasspath  (boot.starterJpa) {
         exclude group: 'org.hibernate', module: 'hibernate-core'
     }
-    compile hibernate.core  // overwrite version of hibernate used so it works well with H2 2.0.206
-    compile boot.starterWebflux, boot.starterWeb, boot.starterJta, db.h2
-    testCompile boot.starterTest, testing.junit5Engine
+    runtimeClasspath hibernate.core  // overwrite version of hibernate used so it works well with H2 2.0.206
+    runtimeClasspath boot.starterWebflux, boot.starterWeb, boot.starterJta, db.h2
+    testImplementation group: 'org.springframework', name: 'spring-test', version: '5.3.3'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.0'
 }
 
 jar {
     manifest {
         attributes("Created-By": "Iuliana Cosmina",
                 "Specification-Title": "Pro Spring 5",
-                "Class-Path": configurations.compile.collect { it.getName() }.join(' '))
+                "Class-Path": configurations.runtimeClasspath.collect { it.getName() }.join(' '))
     }
 }

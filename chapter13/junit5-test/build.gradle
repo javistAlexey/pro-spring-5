@@ -1,6 +1,8 @@
 dependencies {
-    compile project(':chapter13:base-test')
-    testCompile testing.junit5Engine, testing.mockito, spring.test
+    runtimeClasspath project(':chapter13:base-test')
+    testImplementation group: 'junit', name: 'junit', version: '4.13.1'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.6.0'
+    testImplementation group: 'org.springframework', name: 'spring-test', version: '5.3.3'
 }
 test {
 	useJUnitPlatform()
@@ -10,6 +12,6 @@ jar {
     manifest {
         attributes("Created-By"      : "Iuliana Cosmina",
                 "Specification-Title": "Pro Spring 5",
-                "Class-Path"         : configurations.compile.collect { it.getName() }.join(' '))
+                "Class-Path"         : configurations.runtimeClasspath.collect { it.getName() }.join(' '))
     }
 }

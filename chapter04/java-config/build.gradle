@@ -1,6 +1,6 @@
 dependencies {
-	compile project(':chapter03:constructor-injection')
-	testCompile testing.junit
+	runtimeClasspath project(':chapter03:constructor-injection')
+	testImplementation group: 'junit', name: 'junit', version: '4.13.1'
 }
 
 jar {
@@ -8,6 +8,6 @@ jar {
 		attributes("Created-By"      : "Iuliana Cosmina",
 				"Specification-Title": "Pro Spring 5",
 				"Main-Class"         : "com.apress.prospring5.ch4.JavaConfigSimpleDemo",
-				"Class-Path"         : configurations.compile.collect { it.getName() }.join(' '))
+				"Class-Path"         : configurations.runtimeClasspath.collect { it.getName() }.join(' '))
 	}
 }

@@ -1,9 +1,9 @@
 apply plugin: 'war'
 
 dependencies {
-	compile project(':chapter12:base-remote')
-	compile spring.webmvc, web.servlet
-	testCompile spring.test
+	runtimeClasspath project(':chapter12:base-remote')
+	runtimeClasspath spring.webmvc, web.servlet
+	testImplementation group: 'org.springframework', name: 'spring-test', version: '5.3.3'
 }
 
 
@@ -12,7 +12,7 @@ war {
 	manifest {
 		attributes("Created-By"      : "Iuliana Cosmina",
 				"Specification-Title": "Pro Spring 5",
-				"Class-Path"         : configurations.compile.collect { it.getName() }.join(' '))
+				"Class-Path"         : configurations.runtimeClasspath.collect { it.getName() }.join(' '))
 	}
 }
 

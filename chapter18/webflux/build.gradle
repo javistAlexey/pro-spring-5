@@ -1,12 +1,14 @@
 apply plugin: 'war'
 
 dependencies {
-    compile spring.webflux, spring.data, db.h2, hibernate.em, react.projReactorIpc, react.tomcatEmbedded,
+    runtimeClasspath spring.webflux, spring.data, db.h2, hibernate.em, react.projReactorIpc, react.tomcatEmbedded,
             misc.jacksonDatabind, misc.slf4jJcl, misc.logback
-    compile(hibernate.tx) {
+    runtimeClasspath(hibernate.tx) {
         exclude group: 'org.hibernate', module: 'hibernate'
     }
-    testCompile testing.junit5Engine, spring.test, testing.junit
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:5.7.0"
+    testImplementation "org.springframework:spring-test:5.3.3"
+    testImplementation "junit:junit:4.13.1"
 }
 
 /*, spring.data, spring.context
@@ -17,6 +19,6 @@ war {
     manifest {
         attributes("Created-By"      : "Iuliana Cosmina",
                 "Specification-Title": "Pro Spring 5",
-                "Class-Path"         : configurations.compile.collect { it.getName() }.join(' '))
+                "Class-Path"         : configurations.runtimeClasspath.collect { it.getName() }.join(' '))
     }
 }
